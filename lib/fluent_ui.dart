@@ -37,6 +37,7 @@ export 'package:scroll_pos/scroll_pos.dart';
 export 'l10n/extension/fluent_localizations_extension.dart';
 export 'l10n/generated/fluent_localizations.dart';
 export 'src/app.dart';
+/// Controls
 export 'src/controls/flyouts/content.dart';
 export 'src/controls/flyouts/content_manager.dart';
 export 'src/controls/flyouts/flyout.dart';
@@ -71,7 +72,8 @@ export 'src/controls/inputs/toggle_switch.dart';
 export 'src/controls/navigation/bottom_navigation.dart';
 export 'src/controls/navigation/breadcrumb_bar.dart';
 export 'src/controls/navigation/navigation_view/view.dart';
-export 'src/controls/navigation/tab_view.dart';
+export 'src/controls/navigation/tab_view/style.dart';
+export 'src/controls/navigation/tab_view/tab_view.dart';
 export 'src/controls/navigation/tree_view.dart';
 export 'src/controls/surfaces/bottom_sheet.dart';
 export 'src/controls/surfaces/calendar/calendar_view.dart';
@@ -93,6 +95,7 @@ export 'src/icons.dart';
 export 'src/layout/dynamic_overflow.dart';
 export 'src/layout/page.dart';
 export 'src/navigation/route.dart';
+/// Styles
 export 'src/styles/acrylic.dart';
 export 'src/styles/color.dart' hide ColorConst;
 export 'src/styles/color_resources.dart';

@@ -346,31 +346,35 @@ class _TabViewState extends State<TabView> {
     VoidCallback? onPressed,
     String tooltip,
   ) {
+    final tabViewTheme = TabViewTheme.of(context);
+
     final item = SizedBox(
       width: _kButtonWidth,
       height: 24.0,
       child: IconButton(
         icon: Center(child: icon),
         onPressed: onPressed,
-        style: ButtonStyle(
-          foregroundColor: ButtonState.resolveWith((states) {
-            if (states.isDisabled || states.isNone) {
-              return FluentTheme.of(context)
-                  .resources
-                  .controlAltFillColorDisabled;
-            } else {
-              return FluentTheme.of(context).inactiveColor;
-            }
-          }),
-          backgroundColor: ButtonState.resolveWith((states) {
-            if (states.isDisabled || states.isNone) return Colors.transparent;
-            return ButtonThemeData.uncheckedInputColor(
-              FluentTheme.of(context),
-              states,
-            );
-          }),
-          padding: ButtonState.all(EdgeInsets.zero),
-        ),
+        style: tabViewTheme.newTabButtonStyle,
+        // style: ButtonStyle(
+        //   // foregroundColor: ButtonState.resolveWith((states) {
+        //   //   if (states.isDisabled || states.isNone) {
+        //   //     return FluentTheme.of(context)
+        //   //         .resources
+        //   //         .controlAltFillColorDisabled;
+        //   //   } else {
+        //   //     return FluentTheme.of(context).inactiveColor;
+        //   //   }
+        //   // }),
+        //   foregroundColor: tabViewTheme.tabForegroundColor,
+        //   backgroundColor: ButtonState.resolveWith((states) {
+        //     if (states.isDisabled || states.isNone) return Colors.transparent;
+        //     return ButtonThemeData.uncheckedInputColor(
+        //       FluentTheme.of(context),
+        //       states,
+        //     );
+        //   }),
+        //   padding: ButtonState.all(EdgeInsets.zero),
+        // ),
       ),
     );
     if (onPressed == null) return item;
@@ -834,6 +838,7 @@ class __TabState extends State<_Tab>
     super.build(context);
     assert(debugCheckHasFluentTheme(context));
     final theme = FluentTheme.of(context);
+    final TabViewThemeData tabViewTheme = TabViewTheme.of(context);
     final res = theme.resources;
     final localizations = FluentLocalizations.of(context);
 
@@ -851,42 +856,47 @@ class __TabState extends State<_Tab>
       key: widget.tab.key,
       semanticLabel: widget.tab.semanticLabel ?? text,
       onPressed: widget.tab.disabled ? null : widget.onPressed,
+      selected: widget.selected,
       builder: (context, states) {
         // https://github.com/microsoft/microsoft-ui-xaml/blob/main/dev/TabView/TabView_themeresources.xaml#L15-L19
-        final foregroundColor = ButtonState.resolveWith<Color>((states) {
-          if (widget.selected) {
-            return res.textFillColorPrimary;
-          } else if (states.isPressing) {
-            return res.textFillColorSecondary;
-          } else if (states.isHovering) {
-            return res.textFillColorPrimary;
-          } else if (states.isDisabled) {
-            return res.textFillColorDisabled;
-          } else {
-            return res.textFillColorSecondary;
-          }
-        }).resolve(states);
+        // final foregroundColor = ButtonState.resolveWith<Color>((states) {
+        //   if (widget.selected) {
+        //     return res.textFillColorPrimary;
+        //   } else if (states.isPressing) {
+        //     return res.textFillColorSecondary;
+        //   } else if (states.isHovering) {
+        //     return res.textFillColorPrimary;
+        //   } else if (states.isDisabled) {
+        //     return res.textFillColorDisabled;
+        //   } else {
+        //     return res.textFillColorSecondary;
+        //   }
+        // }).resolve(states);
+        // final foregroundColor = tabViewTheme.tabStyle.foregroundColor?.resolve(states) ?? Colors.black.withOpacity(0.7);
+        final foregroundColor = tabViewTheme.tabStyle.foregroundColor!.resolve(states);
 
         /// https://github.com/microsoft/microsoft-ui-xaml/blob/main/dev/TabView/TabView_themeresources.xaml#L10-L14
-        final backgroundColor = ButtonState.resolveWith<Color>((states) {
-          if (widget.selected) {
-            return res.solidBackgroundFillColorTertiary;
-          } else if (states.isPressing) {
-            return res.layerOnMicaBaseAltFillColorDefault;
-          } else if (states.isHovering) {
-            return res.layerOnMicaBaseAltFillColorSecondary;
-          } else if (states.isDisabled) {
-            return res.layerOnMicaBaseAltFillColorTransparent;
-          } else {
-            return res.layerOnMicaBaseAltFillColorTransparent;
-          }
-        }).resolve(states);
+        // final backgroundColor = ButtonState.resolveWith<Color>((states) {
+        //   if (widget.selected) {
+        //     return res.solidBackgroundFillColorTertiary;
+        //   } else if (states.isPressing) {
+        //     return res.layerOnMicaBaseAltFillColorDefault;
+        //   } else if (states.isHovering) {
+        //     return res.layerOnMicaBaseAltFillColorSecondary;
+        //   } else if (states.isDisabled) {
+        //     return res.layerOnMicaBaseAltFillColorTransparent;
+        //   } else {
+        //     return res.layerOnMicaBaseAltFillColorTransparent;
+        //   }
+        // }).resolve(states);
+        final backgroundColor = tabViewTheme.tabStyle.backgroundColor?.resolve(states) ?? Colors.black.withOpacity(0.7);
 
-        const borderRadius = BorderRadius.vertical(top: Radius.circular(6));
+        final borderRadius = tabViewTheme.tabBorderRadius;
+
         Widget child = FocusBorder(
           focused: states.isFocused,
           renderOutside: false,
-          style: const FocusThemeData(borderRadius: borderRadius),
+          style: FocusThemeData(borderRadius: borderRadius),
           child: Container(
             key: widget.tab._tabKey,
             height: _kTileHeight,

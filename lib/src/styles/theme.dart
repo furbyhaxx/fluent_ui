@@ -1,7 +1,7 @@
-import 'package:fluent_ui/fluent_ui.dart';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
+
+import '../../fluent_ui.dart';
 
 class FluentTheme extends StatelessWidget {
   /// Applies the given theme [data] to [child].
@@ -202,7 +202,9 @@ class FluentThemeData with Diagnosticable {
   final Brightness brightness;
   final VisualDensity visualDensity;
 
+  /// Components
   final NavigationPaneThemeData navigationPaneTheme;
+  final TabViewThemeData tabViewTheme;
   final BottomNavigationThemeData bottomNavigationTheme;
   final BottomSheetThemeData bottomSheetTheme;
   final CheckboxThemeData checkboxTheme;
@@ -258,6 +260,7 @@ class FluentThemeData with Diagnosticable {
     TooltipThemeData? tooltipTheme,
     DividerThemeData? dividerTheme,
     NavigationPaneThemeData? navigationPaneTheme,
+    TabViewThemeData? tabViewTheme,
     RadioButtonThemeData? radioButtonTheme,
     ToggleButtonThemeData? toggleButtonTheme,
     SliderThemeData? sliderTheme,
@@ -300,6 +303,8 @@ class FluentThemeData with Diagnosticable {
       brightness: brightness,
       color: resources.textFillColorPrimary,
     ).merge(typography).apply(fontFamily: fontFamily);
+    
+    /// Components
     focusTheme ??= const FocusThemeData();
     buttonTheme ??= const ButtonThemeData();
     checkboxTheme ??= const CheckboxThemeData();
@@ -321,6 +326,13 @@ class FluentThemeData with Diagnosticable {
       typography: typography,
       inactiveColor: inactiveColor,
     ).merge(navigationPaneTheme);
+    tabViewTheme = TabViewThemeData.standard(
+      brightness: brightness,
+      resources: resources,
+      animationCurve: animationCurve,
+      animationDuration: fastAnimationDuration,
+      typography: typography,
+    ).merge(tabViewTheme);
     radioButtonTheme ??= const RadioButtonThemeData();
     sliderTheme ??= const SliderThemeData();
     infoBarTheme ??= const InfoBarThemeData();
@@ -347,6 +359,8 @@ class FluentThemeData with Diagnosticable {
       acrylicBackgroundColor: acrylicBackgroundColor,
       micaBackgroundColor: micaBackgroundColor,
       shadowColor: shadowColor,
+
+      /// Components
       bottomNavigationTheme: bottomNavigationTheme,
       buttonTheme: buttonTheme,
       checkboxTheme: checkboxTheme,
@@ -357,6 +371,7 @@ class FluentThemeData with Diagnosticable {
       iconTheme: iconTheme,
       infoBarTheme: infoBarTheme,
       navigationPaneTheme: navigationPaneTheme,
+      tabViewTheme: tabViewTheme,
       radioButtonTheme: radioButtonTheme,
       scrollbarTheme: scrollbarTheme,
       sliderTheme: sliderTheme,
@@ -392,6 +407,8 @@ class FluentThemeData with Diagnosticable {
     required this.scaffoldBackgroundColor,
     required this.acrylicBackgroundColor,
     required this.micaBackgroundColor,
+
+    /// Components
     required this.buttonTheme,
     required this.checkboxTheme,
     required this.chipTheme,
@@ -402,6 +419,7 @@ class FluentThemeData with Diagnosticable {
     required this.tooltipTheme,
     required this.dividerTheme,
     required this.navigationPaneTheme,
+    required this.tabViewTheme,
     required this.radioButtonTheme,
     required this.toggleButtonTheme,
     required this.sliderTheme,
@@ -466,6 +484,7 @@ class FluentThemeData with Diagnosticable {
       dividerTheme: DividerThemeData.lerp(a.dividerTheme, b.dividerTheme, t),
       navigationPaneTheme: NavigationPaneThemeData.lerp(
           a.navigationPaneTheme, b.navigationPaneTheme, t),
+      tabViewTheme: TabViewThemeData.lerp(a.tabViewTheme, b.tabViewTheme, t),
       radioButtonTheme:
           RadioButtonThemeData.lerp(a.radioButtonTheme, b.radioButtonTheme, t),
       toggleButtonTheme: ToggleButtonThemeData.lerp(
@@ -539,6 +558,7 @@ class FluentThemeData with Diagnosticable {
     TooltipThemeData? tooltipTheme,
     DividerThemeData? dividerTheme,
     NavigationPaneThemeData? navigationPaneTheme,
+    TabViewThemeData? tabViewTheme,
     RadioButtonThemeData? radioButtonTheme,
     ToggleButtonThemeData? toggleButtonTheme,
     SliderThemeData? sliderTheme,
@@ -592,6 +612,7 @@ class FluentThemeData with Diagnosticable {
       infoBarTheme: this.infoBarTheme.merge(infoBarTheme),
       pillButtonBarTheme: this.pillButtonBarTheme.merge(pillButtonBarTheme),
       navigationPaneTheme: this.navigationPaneTheme.merge(navigationPaneTheme),
+      tabViewTheme: this.tabViewTheme.merge(tabViewTheme),
       radioButtonTheme: this.radioButtonTheme.merge(radioButtonTheme),
       scrollbarTheme: this.scrollbarTheme.merge(scrollbarTheme),
       sliderTheme: this.sliderTheme.merge(sliderTheme),
