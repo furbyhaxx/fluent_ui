@@ -59,6 +59,7 @@ class HoverButton extends StatefulWidget {
     this.focusEnabled = true,
     this.forceEnabled = false,
     this.hitTestBehavior = HitTestBehavior.opaque,
+    this.selected = false,
   });
 
   /// {@template fluent_ui.controls.inputs.HoverButton.mouseCursor}
@@ -157,6 +158,10 @@ class HoverButton extends StatefulWidget {
   /// provided
   final bool forceEnabled;
 
+  /// Whether this button is currently selected
+  /// defaults to false
+  final bool selected;
+
   /// How this gesture detector should behave during hit testing.
   ///
   /// This defaults to [HitTestBehavior.opaque]
@@ -250,12 +255,16 @@ class _HoverButtonState extends State<HoverButton> {
       widget.onHorizontalDragUpdate != null ||
       widget.onHorizontalDragEnd != null;
 
+  bool get selected => widget.selected;
+
   Set<ButtonStates> get states {
     if (!enabled) return {ButtonStates.disabled};
 
     return {
+      if (_pressing) ButtonStates.selected,
       if (_pressing) ButtonStates.pressing,
       if (_hovering) ButtonStates.hovering,
+      if (selected) ButtonStates.selected,
       if (_shouldShowFocus) ButtonStates.focused,
     };
   }
@@ -350,7 +359,7 @@ class _HoverButtonState extends State<HoverButton> {
   }
 }
 
-enum ButtonStates { disabled, hovering, pressing, focused, none }
+enum ButtonStates { selected, disabled, hovering, pressing, focused, none }
 
 // typedef ButtonState<T> = T Function(Set<ButtonStates>);
 
@@ -439,5 +448,6 @@ extension ButtonStatesExtension on Set<ButtonStates> {
   bool get isDisabled => contains(ButtonStates.disabled);
   bool get isPressing => contains(ButtonStates.pressing);
   bool get isHovering => contains(ButtonStates.hovering);
+  bool get isSelected => contains(ButtonStates.selected);
   bool get isNone => isEmpty;
 }
