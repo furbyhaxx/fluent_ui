@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 /// {@template fluent_ui.buttons.base}
 /// Buttons give people a way to trigger an action. They’re typically found in
 /// forms, dialog panels, and dialogs.
-/// {@end-template}
+/// {@endtemplate}
 ///
 /// See also:
 ///
@@ -82,6 +82,7 @@ abstract class BaseButton extends StatefulWidget {
   /// Usually a [Text] widget
   final Widget child;
 
+  /// Whether this button can be focused.
   final bool focusable;
 
   @protected
@@ -161,10 +162,8 @@ class _BaseButtonState extends State<BaseButton> {
         final resolvedPadding = resolve<EdgeInsetsGeometry?>(
                 (ButtonStyle? style) => style?.padding) ??
             EdgeInsets.zero;
-        final resolvedBorder =
-            resolve<BorderSide?>((ButtonStyle? style) => style?.border);
         final resolvedShape =
-            resolve<OutlinedBorder?>((ButtonStyle? style) => style?.shape) ??
+            resolve<ShapeBorder?>((ButtonStyle? style) => style?.shape) ??
                 const RoundedRectangleBorder();
 
         final padding = resolvedPadding
@@ -187,7 +186,7 @@ class _BaseButtonState extends State<BaseButton> {
             duration: FluentTheme.of(context).fasterAnimationDuration,
             curve: FluentTheme.of(context).animationCurve,
             decoration: ShapeDecoration(
-              shape: resolvedShape.copyWith(side: resolvedBorder),
+              shape: resolvedShape,
               color: resolvedBackgroundColor,
             ),
             padding: padding,

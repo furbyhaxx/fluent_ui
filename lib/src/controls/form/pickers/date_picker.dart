@@ -159,9 +159,8 @@ class DatePicker extends StatefulWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    final selected = this.selected ?? DateTime.now();
     properties
-      ..add(DiagnosticsProperty('selected', selected))
+      ..add(DiagnosticsProperty<DateTime>('selected', selected, ifNull: 'now'))
       ..add(FlagProperty(
         'showMonth',
         value: showMonth,
@@ -344,34 +343,28 @@ class _DatePickerState extends State<DatePicker> {
 
           final dayWidget = [
             Expanded(
-              child: Padding(
-                padding: widget.contentPadding,
-                child: Text(
-                  widget.selected == null
-                      ? localizations.day
-                      : DateFormat.d().format(DateTime(
-                          0,
-                          0,
-                          widget.selected!.day,
-                        )),
-                  textAlign: TextAlign.center,
-                ),
+              child: Text(
+                widget.selected == null
+                    ? localizations.day
+                    : DateFormat.d('$locale').format(DateTime(
+                        0,
+                        0,
+                        widget.selected!.day,
+                      )),
+                textAlign: TextAlign.center,
               ),
             ),
           ];
 
           final yearWidgets = [
             Expanded(
-              child: Padding(
-                padding: widget.contentPadding,
-                child: Text(
-                  widget.selected == null
-                      ? localizations.year
-                      : DateFormat.y().format(DateTime(
-                          widget.selected!.year,
-                        )),
-                  textAlign: TextAlign.center,
-                ),
+              child: Text(
+                widget.selected == null
+                    ? localizations.year
+                    : DateFormat.y('$locale').format(DateTime(
+                        widget.selected!.year,
+                      )),
+                textAlign: TextAlign.center,
               ),
             ),
           ];
@@ -622,6 +615,7 @@ class __DatePickerContentPopUpState extends State<_DatePickerContentPopUp> {
                   final selected = day == localDate.day;
 
                   return ListTile(
+                    contentPadding: EdgeInsets.zero,
                     key: ValueKey(day),
                     onPressed: selected
                         ? null
@@ -713,6 +707,7 @@ class __DatePickerContentPopUpState extends State<_DatePickerContentPopUp> {
                 final realYear = widget.startDate.year + index;
                 final selected = realYear == localDate.year;
                 return ListTile(
+                  contentPadding: EdgeInsets.zero,
                   onPressed: selected
                       ? null
                       : () {
@@ -725,6 +720,7 @@ class __DatePickerContentPopUpState extends State<_DatePickerContentPopUp> {
                   title: Text(
                     formatter.format(DateTime(realYear)),
                     style: kPickerPopupTextStyle(context, selected),
+                    textAlign: TextAlign.center,
                   ),
                 );
               }),

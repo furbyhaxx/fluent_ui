@@ -1,3 +1,66 @@
+## 4.8.4
+
+* feat: Added Croatian localization support ([#1004](https://github.com/bdlukaa/fluent_ui/pull/1004))
+* feat: Added Vietnamese localization support ([#1005](https://github.com/bdlukaa/fluent_ui/pull/1005))
+
+## 4.8.3
+
+* fix: Offer a more clear exception info in `PaneItemExpander` ([#990]https://github.com/bdlukaa/fluent_ui/pull/990)
+* fix: `ScaffoldPage.padding` is correctly applied ([#986](https://github.com/bdlukaa/fluent_ui/issues/986))
+* fix: `SliderThemeData.labelForegroundColor` is correctly applied ([#1000](https://github.com/bdlukaa/fluent_ui/issues/1000))
+* feat: `NavigationView.onDisplayModeChanged` ([#998](https://github.com/bdlukaa/fluent_ui/issues/998))
+
+## 4.8.2
+
+* fix: The `MenuFlyoutSubItem` in the `DropDownButton` was not displaying when hovered or pressed. ([#964](https://github.com/bdlukaa/fluent_ui/pull/964))
+* fix: Added `enabled` to `PaneItem.copyWith` ([#980](https://github.com/bdlukaa/fluent_ui/issues/980))
+* feat: Added `barrierRecognizer` to `FlyoutController.showFlyout` ([#983](https://github.com/bdlukaa/fluent_ui/issues/983))
+
+## 4.8.1
+
+* feat: Added `NavigationPane.toggleable` ([#973](https://github.com/bdlukaa/fluent_ui/issues/973))
+* feat: `NumberBox.onTextChange` ([#972](https://github.com/bdlukaa/fluent_ui/issues/972))
+* fix: `TextBox.expands` correctly expands on unbounded areas ([#960](https://github.com/bdlukaa/fluent_ui/issues/960))
+
+## 4.8.0
+
+* fix: Correctly paint buttons borders ([#956](https://github.com/bdlukaa/fluent_ui/pull/956))
+* **MINOR BREAKING** Removed `ButtonStyle.border`. Use `ButtonStyle.shape` instead:
+  Before:
+  ```dart
+  Button(
+    style: ButtonStyle(
+      border: ButtonState.all(BorderSide(...)),
+    ),
+  ),
+  ```
+
+  Now:
+  ```dart
+  Button(
+    style: ButtonStyle(
+      shape: ButtonState.all(RoundedRectangleBorder(...)),
+    ),
+  ),
+  ```
+* **BREAKING** Removed `Chip` and its related widgets.
+* **BREAKING** Removed `PillButtonBar` and its related widgets. Use `CommandBar` instead.
+* **BREAKING** Removed `SplitButtonBar`. Use `SplitButton` instead.
+* **BREAKING** Removed `BottomSheet` and its related widgets and functions.
+* **BREAKING** Removed `Snackbar`, `showSnackbar` and their related widgets. Use `InfoBar` and `displayInfoBar` instead.
+* fix: do not close `InfoBar` twice ([#955](https://github.com/bdlukaa/fluent_ui/issues/955))
+* feat: add Kurdish locale ([#962](https://github.com/bdlukaa/fluent_ui/pull/962))
+* fix: review `debugFillProperties` on widgets ([#974](https://github.com/bdlukaa/fluent_ui/issues/974))
+* fix: Date and Time pickers when localization is not English ([#961](https://github.com/bdlukaa/fluent_ui/issues/961))
+
+## 4.7.7
+
+* fix: `ProgressRing` and `ProgressBar` now fit correctly the parent bounds ([#942](https://github.com/bdlukaa/fluent_ui/issues/942))
+* fix: `TabView` buttons was only rendered on hover. Now the buttons (add and scroll buttons) are always rendered.
+* fix: `ComboboxItem` correctly apply foreground color. Added `ComboboxItem.enabled` ([#949](https://github.com/bdlukaa/fluent_ui/issues/949))
+* Add a support for Cupertino Loclizations from GlobalCupertinoLocalizations, this can help fix some errors when using offical adaptive widgets and other cupertino widgets
+* Upgrade the `scroll_pos` dependecy to the latest version which is 0.5.0
+
 ## 4.7.6
 
 * fix: items not aligned centered in `ListTile`. Added `ListTile.contentAlignment` and `ListTile.contentPadding` ([#939](https://github.com/bdlukaa/fluent_ui/issues/939))

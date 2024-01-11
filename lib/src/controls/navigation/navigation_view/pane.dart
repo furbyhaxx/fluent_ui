@@ -85,6 +85,7 @@ class NavigationPane with Diagnosticable {
     this.autoSuggestBox,
     this.autoSuggestBoxReplacement,
     this.displayMode = PaneDisplayMode.auto,
+    this.toggleable = true,
     this.customPane,
     this.menuButton,
     this.scrollController,
@@ -106,6 +107,12 @@ class NavigationPane with Diagnosticable {
   /// Use this property to customize how the pane will be displayed.
   /// [PaneDisplayMode.auto] is used by default.
   final PaneDisplayMode displayMode;
+
+  /// Whether the pane can be toggled or not.
+  ///
+  /// This is used when [displayMode] is [PaneDisplayMode.compact]. If false,
+  /// the pane will always be closed.
+  final bool toggleable;
 
   /// Creates a Custom pane that will be used
   final NavigationPaneWidget? customPane;
@@ -199,16 +206,27 @@ class NavigationPane with Diagnosticable {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(EnumProperty('displayMode', displayMode))
-      ..add(IterableProperty('items', items))
-      ..add(IterableProperty('footerItems', footerItems))
-      ..add(IntProperty('selected', selected))
+      ..add(EnumProperty<PaneDisplayMode>(
+        'displayMode',
+        displayMode,
+        defaultValue: PaneDisplayMode.auto,
+      ))
+      ..add(IterableProperty<NavigationPaneItem>(
+        'items',
+        items,
+        defaultValue: [],
+      ))
+      ..add(IterableProperty<NavigationPaneItem>(
+        'footerItems',
+        footerItems,
+        defaultValue: [],
+      ))
+      ..add(IntProperty('selected', selected, ifNull: 'none'))
       ..add(ObjectFlagProperty('onChanged', onChanged, ifNull: 'disabled'))
       ..add(DiagnosticsProperty<ScrollController>(
-        'scrollController',
-        scrollController,
-      ))
-      ..add(DiagnosticsProperty<NavigationPaneSize>('size', size));
+          'scrollController', scrollController))
+      ..add(DiagnosticsProperty<NavigationPaneSize>('size', size))
+      ..add(ObjectFlagProperty<Widget>.has('autoSuggestBox', autoSuggestBox));
   }
 
   /// Changes the selected item to [item].

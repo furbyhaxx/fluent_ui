@@ -635,7 +635,8 @@ class TreeView extends StatefulWidget {
   final bool usePrototypeItem;
 
   /// Whether or not to have narrow spacing between the contents of each item.
-  /// The default value is `false`.
+  ///
+  /// Defaults to `false`.
   final bool narrowSpacing;
 
   @override
@@ -655,11 +656,13 @@ class TreeView extends StatefulWidget {
         'includePartiallySelectedItems',
         value: includePartiallySelectedItems,
         defaultValue: false,
+        ifFalse: 'only fully selected items',
       ))
       ..add(FlagProperty(
         'narrowSpacing',
         value: narrowSpacing,
         defaultValue: false,
+        ifTrue: 'narrow spacing',
       ));
   }
 }
